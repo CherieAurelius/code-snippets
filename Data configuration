@@ -1,0 +1,46 @@
+1. Go to configuration.cs
+2. Give your nseeder a name e.g. SeedEmployees
+```
+namespace Datamodel.Migrationsv {
+private static void SeedEmployees(IDataContext context)
+}
+
+```
+
+3. Make sure it returns
+```
+	if (!TableExists(context, "Employees"))
+			{
+				return;
+			}
+``
+
+
+4. Create data , for example a new list of employees (read from right to left, the employeestoAdd contains a new list of employees)
+```
+var employeesToAdd = new List<Employee>
+			{
+				new Employee
+				{
+					Name = "Allard",
+					LastName = "Struiksma",
+					BirthDate = new DateTime(1994, 5, 4)
+				},
+				new Employee
+				{
+					Name = "Fauve",
+					LastName = "Setrodinomo",
+					BirthDate = new DateTime(2001, 3, 4)
+				},
+			};      
+```
+
+5. var Employees means : take the first name and last name  if this is null create a employee
+```
+var employee = context.Employees.FirstOrDefault(e => e.Name == employeeToAdd.Name && e.LastName == employeeToAdd.LastName);
+Name = employeeToAdd.Name,
+						LastName = employeeToAdd.LastName,
+						BirthDate = employeeToAdd.BirthDate
+					}.SetIdbsCreateAndUpdatedPropertiesAndPublish());
+```
+
